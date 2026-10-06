@@ -42,4 +42,23 @@ public class WorkerList {
         w.addSalary(new SalaryHistory(w.getSalary(), status));
         return true;
     }
+
+    public ArrayList<SalaryHistory> displaySalary() {
+        java.util.Collections.sort(WL, new java.util.Comparator<Worker>() {
+            @Override
+            public int compare(Worker w1, Worker w2) {
+                return w1.getCode().compareTo(w2.getCode());
+            }
+        });
+
+        ArrayList<SalaryHistory> result = new ArrayList<>();
+
+        for (Worker worker : WL) {
+            for (SalaryHistory entry : worker.getSL()) {
+                result.add(entry);
+            }
+        }
+
+        return result;
+    }
 }

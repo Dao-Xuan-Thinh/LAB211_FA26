@@ -60,5 +60,23 @@ public class DataInput {
         }
     }
 
+    public static double inputPositiveDouble(){
+        while (true){
+            try {
+                String input = inputString();
+                double result = Double.parseDouble(input);
+                if (result > 0) {
+                    return result;
+                }
+                else {
+                    System.out.println("Please input a positive number");
+                }
+            }
+            catch (NumberFormatException e) {
+                System.out.println("Please input a number");
+            }
+        }
+    }
+
 
 }

@@ -6,7 +6,7 @@ import java.util.Locale;
 public class CandidateList {
     ArrayList<Candidate> CL = new ArrayList<>();
 
-    public static ArrayList<Candidate> getList(){
+    public ArrayList<Candidate> getList(){
         return CL;
     }
 
@@ -14,7 +14,7 @@ public class CandidateList {
         CL.add(c);
     }
 
-    public static ArrayList<Candidate> findCandidate(String name, int type) {
+    public ArrayList<Candidate> findCandidate(String name, int type) {
         ArrayList<Candidate> found = new ArrayList<>();
         String temp = name.trim().toLowerCase();
 

@@ -6,30 +6,36 @@ import java.time.Year;
 import java.util.ArrayList;
 
 public class ConsoleForm {
-    public static String inputBirthDate() {
+    private CandidateList CL;
+
+    public ConsoleForm(CandidateList CL){
+        this.CL = CL;
+    }
+
+    public String inputBirthDate() {
         return String.valueOf(DataInput.GetIntInRange("Birth year> ", 1900, Year.now().getValue()));
     }
 
-    public static String inputPhone() {
+    public String inputPhone() {
         System.out.print("Phone> ");
         return DataInput.inputRegex("[0-9]{10,}", "Phone must contain at least 10 digits.");
     }
 
-    public static String inputEmail() {
+    public String inputEmail() {
         System.out.print("Email> ");
         return DataInput.inputEmail();
     }
 
-    public static int inputExpYear() {
+    public int inputExpYear() {
         return DataInput.GetIntInRange("Year of Experience> ", 0, 100);
     }
 
-    public static String inputRank() {
+    public String inputRank() {
         System.out.print("Rank of Graduation> ");
         return DataInput.inputChoice("Excellence", "Good", "Fair", "Poor");
     }
 
-    private static void inputCandidate(Candidate c) {
+    private void inputCandidate(Candidate c) {
         System.out.print("ID> ");
         c.setId(DataInput.inputString());
 
@@ -48,7 +54,7 @@ public class ConsoleForm {
         c.setMail(inputEmail());
     }
 
-    public static Experience inputCandidateType(Experience c) {
+    public Experience inputCandidateType(Experience c) {
         inputCandidate(c);
         c.setType(0);
 
@@ -60,7 +66,7 @@ public class ConsoleForm {
         return c;
     }
 
-    public static Fresher inputCandidateType(Fresher c) {
+    public Fresher inputCandidateType(Fresher c) {
         inputCandidate(c);
         c.setType(1);
 
@@ -75,7 +81,7 @@ public class ConsoleForm {
         return c;
     }
 
-    public static Intern inputCandidateType(Intern c) {
+    public Intern inputCandidateType(Intern c) {
         inputCandidate(c);
         c.setType(2);
 
@@ -91,13 +97,13 @@ public class ConsoleForm {
         return c;
     }
 
-    private void displayCandidates() {
+    private void displayCandidates(ArrayList<Candidate> list) {
         String[] headings = {"EXPERIENCE CANDIDATE", "FRESHER CANDIDATE", "INTERN CANDIDATE"};
 
         for (int type = 0; type < headings.length; type++) {
             System.out.println("===== " + headings[type] + " =====");
 
-            for (Candidate c : CandidateList.getList()) {
+            for (Candidate c : list) {
                 if (c.getType() == type) {
                     System.out.println(c.getFirstName() + " " + c.getLastName());
                 }
@@ -105,20 +111,34 @@ public class ConsoleForm {
         }
     }
 
-    public void searchCandidates() {
-        if (CandidateList.getList().isEmpty()){
+    public void displayCandidate(ArrayList<Candidate> list){
+        String[] headers = {"EXP", "FRESHER", "INTERN"};
+
+        for (int i = 0; i < headers.length; i++){
+            System.out.println("========" + headers[i] + "========");
+
+            for (Candidate c : list){
+                if (c.getType() == i){
+                    System.out.println(c.getFirstName() + " " + c.getLastName());
+                }
+            }
+        }
+    }
+
+    public void searchCandidates(ArrayList<Candidate> list) {
+        if (list.isEmpty()){
             System.out.println("List is empty");
             return;
         }
 
-        displayCandidates();
+        displayCandidates(list);
 
         System.out.print("Candidate name> ");
         String name = DataInput.inputString();
 
         int type = DataInput.GetIntInRange("Type> ", 0, 2);
 
-        ArrayList<Candidate> found = CandidateList.findCandidate(name, type);
+        ArrayList<Candidate> found = CL.findCandidate(name, type);
 
         if (found.isEmpty()) {
             System.out.println("No candidates found");

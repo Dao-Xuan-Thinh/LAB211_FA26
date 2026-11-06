@@ -52,8 +52,10 @@ public class Manage {
                     if (p == null)
                         System.out.println("Product not found");
 
-                    else
+                    else {
                         PL.removeProduct(p);
+                        System.out.println("Deleted");
+                    }
 
                     break;
 

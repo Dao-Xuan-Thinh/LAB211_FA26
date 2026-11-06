@@ -1,12 +1,10 @@
 package view;
 
+import java.util.ArrayList;
 import model.Electronics;
 import model.Food;
 import model.Furniture;
 import model.Product;
-import model.ProductList;
-
-import java.util.ArrayList;
 
 public class ConsoleForm {
     public String getName(){
